@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine's Day 💘</title>
+
+    <!-- React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel (lets us write JSX in the browser) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #fff0f5;
+      }
+
+      button {
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+    </style>
+    <style>
+  body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #fff0f5;
+  }
+
+  button {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    color: red;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-110vh);
+      opacity: 0;
+    }
+  }
+</style>
+
+  </head>
+
+  <body>
+    <div class="hearts"></div>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const NO_PHRASES = [
+        "No 💔",
+        "Pretty please? 🥺",
+        "But we'd be so cute together! 💕",
+        "One more chance, pookie?",
+        "Don't break my heart :(",
+        "What about a maybe?",
+        "Please don't do this to me, I'm fragile",
+      ];
+
+      function App() {
+        const [noClicks, setNoClicks] = React.useState(0);
+        const [isValentine, setIsValentine] = React.useState(false);
+
+        const yesButtonSize = noClicks * 20 + 16;
+
+        const firstImg =
+          "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif";
+        const secondImg =
+          "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
+
+        return (
+          <div>
+            {!isValentine ? (
+              <>
+                <img src={firstImg} alt="cute bear" />
+                <h1>Will you be my valentine Aninha? 💘</h1>
+
+                <div>
+                  <button
+                    onClick={() => setIsValentine(true)}
+                    style={{
+                      fontSize: yesButtonSize + "px",
+                      margin: "10px",
+                      padding: "10px 20px",
+                      backgroundColor: "green",
+                      color: "white",
+                    }}
+                  >
+                    Yes
+                  </button>
+
+                  <button
+                    onClick={() => setNoClicks(noClicks + 1)}
+                    style={{
+                      fontSize: "16px",
+                      margin: "10px",
+                      padding: "10px 20px",
+                      backgroundColor: "red",
+                      color: "white",
+                    }}
+                  >
+                    {noClicks === 0
+                      ? "No"
+                      : NO_PHRASES[Math.min(noClicks - 1, NO_PHRASES.length - 1)]}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <img src={secondImg} alt="celebration" />
+                <h1 style={{ fontSize: "48px", color: "hotpink" }}>
+                  Yay!!! 💖🎉
+                </h1>
+              </>
+            )}
+          </div>
+        );
+      }
+      function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 10 + "px";
+  heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+
+  document.querySelector(".hearts").appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 7000);
+}
+
+setInterval(createHeart, 300);
+
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
